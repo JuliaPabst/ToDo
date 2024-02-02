@@ -9,7 +9,7 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
 
-    let itemArray = ["Study", "Cuddle", "Sleep"]
+    var itemArray = ["Study", "Cuddle", "Sleep"]
     
    
     
@@ -17,6 +17,7 @@ class ToDoListViewController: UITableViewController {
         super.viewDidLoad()
         tableView.delegate = self
     }
+    
     
     //MARK - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,20 +43,25 @@ class ToDoListViewController: UITableViewController {
         
         }
 
-    //MARK - Add new Items
     
+    //MARK - Add new Items
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var currentText = UITextField()
         
         let alert = UIAlertController(title: "Add new ToDo Item", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default){ (action) in
-            print("Success!")
+            self.itemArray.append(currentText.text!)
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            currentText = alertTextField
         }
         
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
-        
     }
 }
 
