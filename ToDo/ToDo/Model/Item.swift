@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+class item {
+    let title: String = ""
+    var done: Bool = false
+}
