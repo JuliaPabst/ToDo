@@ -8,18 +8,23 @@
 import UIKit
 
 class ToDoListViewController: UITableViewController {
-
-    var itemArray = ["Study", "Cuddle", "Sleep"]
     
-   let defaults = UserDefaults()
+    var itemArray = [Item()]
+    
+    let defaults = UserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         
-        if let items = defaults.array(forKey: "ToDoListArray") as? [String]{
-            itemArray = items
-        }
+        /*if let items = defaults.array(forKey: "ToDoListArray") as? [String]{
+         itemArray = items
+         }
+         */
+        
+        let newItem = Item()
+        newItem.title = "Find Milk"
+        itemArray.append(newItem)
     }
     
     
@@ -30,7 +35,7 @@ class ToDoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
-        cell.textLabel?.text = itemArray[indexPath.row]
+        cell.textLabel?.text = itemArray[indexPath.row].title
         return cell
     }
     
@@ -45,8 +50,8 @@ class ToDoListViewController: UITableViewController {
         print(itemArray[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
         
-        }
-
+    }
+    
     
     //MARK - Add new Items
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -56,7 +61,9 @@ class ToDoListViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add Item", style: .default){ (action) in
             if let text = currentText.text{
-                self.itemArray.append(text)
+                let brandNewItem = Item()
+                brandNewItem.title = text
+                self.itemArray.append(brandNewItem)
                 self.defaults.set(self.itemArray, forKey: "ToDoListArray")
                 self.tableView.reloadData()
             }
