@@ -6,20 +6,22 @@
 //
 
 import UIKit
+import CoreData
 
 class ToDoListViewController: UITableViewController {
     
-    var itemArray = [Item()]
+    var itemArray = [Item]()
     
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         
-        loadItems()
+        //loadItems()
     }
     
     
@@ -61,6 +63,7 @@ class ToDoListViewController: UITableViewController {
             if let text = currentText.text{
                 let brandNewItem = Item(context: self.context)
                 brandNewItem.title = text
+                brandNewItem.done = false
                 self.itemArray.append(brandNewItem)
                 
                 self.saveItems()
@@ -84,8 +87,11 @@ class ToDoListViewController: UITableViewController {
         } catch {
             print("Error saving context, \(error)")
         }
+        
+        self.tableView.reloadData()
     }
     
+    /*
     func loadItems(){
         if let url = dataFilePath{
             if let data = try? Data(contentsOf: url){
@@ -98,8 +104,8 @@ class ToDoListViewController: UITableViewController {
                
             }
         }
-       
     }
+     */
 }
 
 
