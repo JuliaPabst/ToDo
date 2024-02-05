@@ -13,6 +13,8 @@ class ToDoListViewController: UITableViewController {
     
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -54,10 +56,10 @@ class ToDoListViewController: UITableViewController {
         let alert = UIAlertController(title: "Add new ToDo Item", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default){ (action) in
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
             
             if let text = currentText.text{
-                let brandNewItem = Item(context: context)
+                let brandNewItem = Item(context: self.context)
                 brandNewItem.title = text
                 self.itemArray.append(brandNewItem)
                 
@@ -77,15 +79,10 @@ class ToDoListViewController: UITableViewController {
     }
     
     func saveItems(){
-        let encoder = PropertyListEncoder()
-        
         do{
-            let data = try encoder.encode(itemArray)
-            if let url = dataFilePath {
-                try data.write(to:  url)
-            }
+            try context.save()
         } catch {
-            print("Error encoding item array, \(error)")
+            print("Error saving context, \(error)")
         }
     }
     
