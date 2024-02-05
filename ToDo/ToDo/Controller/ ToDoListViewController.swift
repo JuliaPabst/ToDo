@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class ToDoListViewController: UITableViewController, UISearchBarDelegate {
+class ToDoListViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -87,6 +87,7 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
         present(alert, animated: true, completion: nil)
     }
     
+    //MARK - Model Manipulation
     func saveItems(){
         do{
             try context.save()
@@ -104,6 +105,15 @@ class ToDoListViewController: UITableViewController, UISearchBarDelegate {
         } catch {
             print("Error fetching data: \(error)")
         }
+    }
+    
+    
+}
+
+//MARK - SearchBar
+extension ToDoListViewController: UISearchBarDelegate{
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
     }
 }
 
