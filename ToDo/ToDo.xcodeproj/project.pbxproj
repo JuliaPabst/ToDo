@@ -66,7 +66,7 @@
 				A3B442B92B6FEF9000FBC5B8 /* View */,
 				A3B442BA2B6FEFA000FBC5B8 /* Controller */,
 				A3B442AB2B6CDCE900FBC5B8 /* Assets.xcassets */,
-				A3B442DE2B70F5C500FBC5B8 /* DataModel.xcdatamodeld */,
+				A3B442E12B70F62700FBC5B8 /* DataModel */,
 				A3B442B02B6CDCE900FBC5B8 /* Info.plist */,
 			);
 			path = ToDo;
@@ -95,6 +95,14 @@
 				A3B442A62B6CDCE600FBC5B8 /*  ToDoListViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		A3B442E12B70F62700FBC5B8 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				A3B442DE2B70F5C500FBC5B8 /* DataModel.xcdatamodeld */,
+			);
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
