@@ -22,6 +22,8 @@ class ToDoListViewController: UITableViewController {
         let newItem = Item()
         newItem.title = "Find Milk"
         itemArray.append(newItem)
+        
+        loadItems()
     }
     
     
@@ -89,6 +91,21 @@ class ToDoListViewController: UITableViewController {
         } catch {
             print("Error encoding item array, \(error)")
         }
+    }
+    
+    func loadItems(){
+        if let url = dataFilePath{
+            if let data = try? Data(contentsOf: url){
+                let decoder = PropertyListDecoder()
+                do{
+                    itemArray = try decoder.decode([Item].self, from: data)
+                } catch{
+                    print("Error decoding: \(error)")
+                }
+               
+            }
+        }
+       
     }
 }
 
