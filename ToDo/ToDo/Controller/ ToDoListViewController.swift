@@ -17,12 +17,6 @@ class ToDoListViewController: UITableViewController {
         super.viewDidLoad()
         tableView.delegate = self
         
-        
-        
-        let newItem = Item()
-        newItem.title = "Find Milk"
-        itemArray.append(newItem)
-        
         loadItems()
     }
     
@@ -60,8 +54,10 @@ class ToDoListViewController: UITableViewController {
         let alert = UIAlertController(title: "Add new ToDo Item", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Item", style: .default){ (action) in
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
             if let text = currentText.text{
-                let brandNewItem = Item()
+                let brandNewItem = Item(context: context)
                 brandNewItem.title = text
                 self.itemArray.append(brandNewItem)
                 
