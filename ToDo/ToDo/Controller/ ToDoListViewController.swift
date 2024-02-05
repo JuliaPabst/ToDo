@@ -21,7 +21,7 @@ class ToDoListViewController: UITableViewController {
         super.viewDidLoad()
         tableView.delegate = self
         
-        //loadItems()
+    loadItems()
     }
     
     
@@ -41,7 +41,10 @@ class ToDoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        /* context.delete(itemArray[indexPath.row])
+        itemArray.remove(at: indexPath.row) */
+        
+       itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
         self.saveItems()
         
@@ -87,25 +90,18 @@ class ToDoListViewController: UITableViewController {
         } catch {
             print("Error saving context, \(error)")
         }
-        
         self.tableView.reloadData()
     }
     
-    /*
+ 
     func loadItems(){
-        if let url = dataFilePath{
-            if let data = try? Data(contentsOf: url){
-                let decoder = PropertyListDecoder()
-                do{
-                    itemArray = try decoder.decode([Item].self, from: data)
-                } catch{
-                    print("Error decoding: \(error)")
-                }
-               
-            }
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        do{
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data: \(error)")
         }
     }
-     */
 }
 
 
