@@ -31,6 +31,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="cYa-z6-VIi"/>
+                    <connections>
+                        <segue destination="0OR-Xl-dUg" kind="show" identifier="goToItems" id="ruS-Rb-2hE"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B6y-bf-MgL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
