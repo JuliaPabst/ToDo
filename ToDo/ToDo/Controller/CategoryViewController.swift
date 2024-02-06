@@ -34,14 +34,6 @@ class CategoryViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        self.saveCategories()
-        
-        tableView.reloadData()
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
     
     //MARK: - Add New Categories
     
@@ -98,5 +90,20 @@ class CategoryViewController: UITableViewController {
     
     //MARK: - TableView Delegate Methods
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        
+        performSegue(withIdentifier: "goToItems", sender: self)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        let destinationVC = segue.destination as! ToDoListViewController
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedCategory = categoriesArray[indexPath.row]
+        }
+    }
 }
