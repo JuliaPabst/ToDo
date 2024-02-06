@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="dT9-Me-vz2">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="dT9-Me-vz2">
                                 <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dT9-Me-vz2" id="Tad-3o-EnO">
@@ -30,7 +30,11 @@
                             <outlet property="delegate" destination="EXX-Zb-PLi" id="Mhe-mc-Vat"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="cYa-z6-VIi"/>
+                    <navigationItem key="navigationItem" id="cYa-z6-VIi">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="3LT-ba-gYO">
+                            <color key="tintColor" systemColor="systemBackgroundColor"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="0OR-Xl-dUg" kind="show" identifier="goToItems" id="ruS-Rb-2hE"/>
                     </connections>
