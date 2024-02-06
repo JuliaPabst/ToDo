@@ -12,8 +12,6 @@ class CategoryViewController: UITableViewController {
     
     var categoriesArray = [Category]()
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Categories.plist")
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     override func viewDidLoad() {
@@ -33,7 +31,6 @@ class CategoryViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         cell.textLabel?.text = categoriesArray[indexPath.row].name
         
-        
         return cell
     }
     
@@ -46,27 +43,6 @@ class CategoryViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    //MARK: - Data Manipulation Methods
-    
-    func saveCategories(){
-        do{
-            try context.save()
-        } catch {
-            print("Error saving context, \(error)")
-        }
-        self.tableView.reloadData()
-    }
-    
- 
-    func loadCategories(with request: NSFetchRequest<Category> = Category.fetchRequest()){
-        do{
-            categoriesArray = try context.fetch(request)
-        } catch {
-            print("Error fetching data: \(error)")
-        }
-        self.tableView.reloadData()
-    }
-    
     //MARK: - Add New Categories
     
 
@@ -75,8 +51,7 @@ class CategoryViewController: UITableViewController {
         
         let alert = UIAlertController(title: "Add new ToDo Category", message: "", preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Add Category", style: .default){ (action) in
-            
+        let action = UIAlertAction(title: "Add", style: .default){ (action) in
             
             if let text = currentText.text{
                 let brandNewCategory = Category(context: self.context)
@@ -89,13 +64,34 @@ class CategoryViewController: UITableViewController {
         }
         
         alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Create new item"
+            alertTextField.placeholder = "Create new category"
             currentText = alertTextField
         }
         
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    //MARK: - Data Manipulation Methods
+    
+    func saveCategories(){
+        do{
+            try context.save()
+        } catch {
+            print("Error saving context, \(error)")
+        }
+        tableView.reloadData()
+    }
+    
+ 
+    func loadCategories(with request: NSFetchRequest<Category> = Category.fetchRequest()){
+        do{
+            categoriesArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data: \(error)")
+        }
+        tableView.reloadData()
     }
     
     
