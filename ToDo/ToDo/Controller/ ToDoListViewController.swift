@@ -14,6 +14,12 @@ class ToDoListViewController: UITableViewController {
     
     var itemArray = [Item]()
     
+    var selectedCategory: Category? {
+        didSet{
+            loadItems()
+        }
+    }
+    
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -23,8 +29,6 @@ class ToDoListViewController: UITableViewController {
         super.viewDidLoad()
         tableView.delegate = self
         searchBar.delegate = self
-    
-    loadItems()
     }
     
     
