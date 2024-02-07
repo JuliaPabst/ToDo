@@ -52,9 +52,16 @@ class ToDoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//       items[indexPath.row].done = !items[indexPath.row].done
-//        
-//        self.saveItems()
+        if let item =  items?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    item.done = !item.done
+                }
+            } catch {
+                print("Cannot update item checked or unchecked \(error)")
+            }
+            
+        }
         
         tableView.reloadData()
         
