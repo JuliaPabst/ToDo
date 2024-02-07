@@ -12,26 +12,23 @@ class CategoryViewController: UITableViewController {
     
     let realm = try! Realm()
     
-    var categoriesArray = [Category]()
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var categories: Results<Category>!
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
-        
         loadCategories()
-
     }
     
     //MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoriesArray.count
+        return categories.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        cell.textLabel?.text = categoriesArray[indexPath.row].name
+        cell.textLabel?.text = categories[indexPath.row].name
         
         return cell
     }
@@ -50,8 +47,6 @@ class CategoryViewController: UITableViewController {
             if let text = currentText.text{
                 let brandNewCategory = Category()
                 brandNewCategory.name = text
-                self.categoriesArray.append(brandNewCategory)
-                
                 self.save(category: brandNewCategory)
                 self.tableView.reloadData()
             }
@@ -81,12 +76,8 @@ class CategoryViewController: UITableViewController {
     }
     
  
-    func loadCategories(with request: NSFetchRequest<Category> = Category.fetchRequest()){
-        do{
-            categoriesArray = try context.fetch(request)
-        } catch {
-            print("Error fetching data: \(error)")
-        }
+    func loadCategories(){
+        categories = realm.objects(Category.self)
         tableView.reloadData()
     }
     
@@ -107,7 +98,9 @@ class CategoryViewController: UITableViewController {
         let destinationVC = segue.destination as! ToDoListViewController
         
         if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.selectedCategory = categoriesArray[indexPath.row]
+            destinationVC.selectedCategory = categories[indexPath.row]
         }
     }
+    
+    
 }
