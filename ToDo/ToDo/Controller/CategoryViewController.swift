@@ -48,11 +48,11 @@ class CategoryViewController: UITableViewController {
         let action = UIAlertAction(title: "Add", style: .default){ (action) in
             
             if let text = currentText.text{
-                let brandNewCategory = Category(context: self.context)
+                let brandNewCategory = Category()
                 brandNewCategory.name = text
                 self.categoriesArray.append(brandNewCategory)
                 
-                self.saveCategories()
+                self.save(category: brandNewCategory)
                 self.tableView.reloadData()
             }
         }
@@ -69,9 +69,11 @@ class CategoryViewController: UITableViewController {
     
     //MARK: - Data Manipulation Methods
     
-    func saveCategories(){
+    func save(category: Category){
         do{
-            try context.save()
+            try realm.write{
+                realm.add(category)
+            }
         } catch {
             print("Error saving context, \(error)")
         }
