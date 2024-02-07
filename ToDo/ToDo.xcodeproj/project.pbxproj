@@ -17,7 +17,8 @@
 		A3ED96A82B7260EC00B54712 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3ED96A72B7260EC00B54712 /* CategoryViewController.swift */; };
 		A3ED96AB2B739FA800B54712 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = A3ED96AA2B739FA800B54712 /* Realm */; };
 		A3ED96AD2B739FA800B54712 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A3ED96AC2B739FA800B54712 /* RealmSwift */; };
-		A3ED96AF2B73CF7200B54712 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3ED96AE2B73CF7100B54712 /* Data.swift */; };
+		A3ED96B12B73D4FA00B54712 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3ED96B02B73D4FA00B54712 /* Category.swift */; };
+		A3ED96B32B73D50800B54712 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3ED96B22B73D50800B54712 /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +32,8 @@
 		A3B442B02B6CDCE900FBC5B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3B442DF2B70F5C500FBC5B8 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		A3ED96A72B7260EC00B54712 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
-		A3ED96AE2B73CF7100B54712 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Data.swift; path = Model/Data.swift; sourceTree = "<group>"; };
+		A3ED96B02B73D4FA00B54712 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		A3ED96B22B73D50800B54712 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +69,6 @@
 			isa = PBXGroup;
 			children = (
 				A3B442A22B6CDCE600FBC5B8 /* AppDelegate.swift */,
-				A3ED96AE2B73CF7100B54712 /* Data.swift */,
 				A3B442A42B6CDCE600FBC5B8 /* SceneDelegate.swift */,
 				A3B442B82B6FEF7800FBC5B8 /* Model */,
 				A3B442B92B6FEF9000FBC5B8 /* View */,
@@ -81,6 +82,8 @@
 		A3B442B82B6FEF7800FBC5B8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A3ED96B02B73D4FA00B54712 /* Category.swift */,
+				A3ED96B22B73D50800B54712 /* Item.swift */,
 				A3B442DE2B70F5C500FBC5B8 /* DataModel.xcdatamodeld */,
 			);
 			path = Model;
@@ -183,11 +186,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3ED96A82B7260EC00B54712 /* CategoryViewController.swift in Sources */,
-				A3ED96AF2B73CF7200B54712 /* Data.swift in Sources */,
 				A3B442E02B70F5C500FBC5B8 /* DataModel.xcdatamodeld in Sources */,
 				A3B442A72B6CDCE600FBC5B8 /*  ToDoListViewController.swift in Sources */,
 				A3B442A32B6CDCE600FBC5B8 /* AppDelegate.swift in Sources */,
+				A3ED96B32B73D50800B54712 /* Item.swift in Sources */,
 				A3B442A52B6CDCE600FBC5B8 /* SceneDelegate.swift in Sources */,
+				A3ED96B12B73D4FA00B54712 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
