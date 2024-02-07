@@ -6,17 +6,18 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class ToDoListViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var itemArray = [Item]()
+    var items: Results<Item>?
+    let realm = try! Realm()
     
     var selectedCategory: Category? {
         didSet{
-          //  loadItems()
+          loadItems()
         }
     }
     
@@ -101,26 +102,13 @@ class ToDoListViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-//
-//    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil){
-//        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-//        
-//        if let additionalPredicate = predicate {
-//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
-//        } else {
-//            request.predicate = categoryPredicate
-//        }
-//        
-//        do{
-//            itemArray = try context.fetch(request)
-//        } catch {
-//            print("Error fetching data: \(error)")
-//        }
-//        self.tableView.reloadData()
-//    }
-//
-//    
-//}
+
+    func loadItems(){
+        items = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        self.tableView.reloadData()
+    }
+    
+}
 
 //MARK - SearchBar
 //extension ToDoListViewController: UISearchBarDelegate{
@@ -142,8 +130,7 @@ class ToDoListViewController: UITableViewController {
 //                searchBar.resignFirstResponder()
 //            }
 //        }
- 
-}
+//}
 
 
 
