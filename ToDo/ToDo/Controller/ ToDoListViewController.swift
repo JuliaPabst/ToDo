@@ -52,9 +52,9 @@ class ToDoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // items[indexPath.row].done = !items[indexPath.row].done
-        
-        self.saveItems()
+//       items[indexPath.row].done = !items[indexPath.row].done
+//        
+//        self.saveItems()
         
         tableView.reloadData()
         
@@ -71,16 +71,22 @@ class ToDoListViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default){ (action) in
             
             
-//            if let text = currentText.text{
-//                let brandNewItem = Item()
-//                brandNewItem.title = text
-//                brandNewItem.done = false
-//                brandNewItem.parentCategory = self.selectedCategory
-//                self.itemArray.append(brandNewItem)
-//                
-//                self.saveItems()
-//                self.tableView.reloadData()
-//            }
+            if let text = currentText.text{
+                
+                if let currentCategory = self.selectedCategory {
+                    do{
+                        try self.realm.write{
+                            let brandNewItem = Item()
+                            brandNewItem.title = text
+                            currentCategory.items.append(brandNewItem)
+                            self.realm.add(currentCategory)
+                        }
+                    } catch {
+                        print("Error saving items, \(error)")
+                    }
+                    self.tableView.reloadData()
+                }
+            }
         }
         
         alert.addTextField { (alertTextField) in
@@ -94,16 +100,6 @@ class ToDoListViewController: UITableViewController {
     }
     
     //MARK - Model Manipulation
-    func saveItems(){
-        do{
-            try context.save()
-        } catch {
-            print("Error saving context, \(error)")
-        }
-        self.tableView.reloadData()
-    }
-    
-
     func loadItems(){
         items = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         self.tableView.reloadData()
