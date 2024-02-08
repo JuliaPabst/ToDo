@@ -14,12 +14,13 @@ class CategoryViewController: UITableViewController {
     let realm = try! Realm()
     
     var categories: Results<Category>?
-   
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         loadCategories()
+        tableView.rowHeight = 80.0
     }
     
     //MARK: - TableView Datasource Methods
@@ -39,7 +40,7 @@ class CategoryViewController: UITableViewController {
     
     //MARK: - Add New Categories
     
-
+    
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var currentText = UITextField()
         
@@ -78,7 +79,7 @@ class CategoryViewController: UITableViewController {
         tableView.reloadData()
     }
     
- 
+    
     func loadCategories(){
         categories = realm.objects(Category.self)
         tableView.reloadData()
@@ -87,7 +88,7 @@ class CategoryViewController: UITableViewController {
     
     
     //MARK: - TableView Delegate Methods
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         
@@ -111,14 +112,23 @@ extension CategoryViewController: SwipeTableViewCellDelegate {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
-
+        
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-            print("delte Item")
+            do {
+                if let currentCategory = self.categories?[indexPath.row]{
+                    try self.realm.write {
+                        self.realm.delete(currentCategory)
+                    }
+                    tableView.reloadData()
+                }
+            } catch {
+                print("Cannot delete  item checked \(error)")
+            }
         }
-
+        
         // customize the action appearance
         deleteAction.image = UIImage(named: "delete-icon")
-
+        
         return [deleteAction]
     }
     
