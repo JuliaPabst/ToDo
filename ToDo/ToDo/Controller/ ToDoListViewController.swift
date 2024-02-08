@@ -17,7 +17,7 @@ class ToDoListViewController: UITableViewController {
     
     var selectedCategory: Category? {
         didSet{
-          loadItems()
+            loadItems()
         }
     }
     
@@ -112,7 +112,7 @@ class ToDoListViewController: UITableViewController {
         items = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         self.tableView.reloadData()
     }
-    
+
 }
 
 //MARK - SearchBar
@@ -130,6 +130,7 @@ extension ToDoListViewController: UISearchBarDelegate{
                 searchBar.resignFirstResponder()
             }
         }
+    }
 }
 
 
