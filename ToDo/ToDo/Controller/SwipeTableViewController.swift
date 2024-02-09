@@ -29,17 +29,9 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         
         print("Delete Cell")
         
-        //        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-        //            if let currentCategory = self.categories?[indexPath.row]{
-        //                do {
-        //                    try self.realm.write {
-        //                        self.realm.delete(currentCategory)
-        //                    }
-        //                } catch {
-        //                    print("Cannot delete  item checked \(error)")
-        //                }
-        //            }
-        //        }
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            self.updateModel(at: indexPath)
+        }
         
         // customize the action appearance
         deleteAction.image = UIImage(named: "delete-icon")
@@ -51,6 +43,10 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         var options = SwipeOptions()
         options.expansionStyle = .destructive
         return options
+    }
+    
+    func updateModel(at indexPath: IndexPath){
+        
     }
     
     
