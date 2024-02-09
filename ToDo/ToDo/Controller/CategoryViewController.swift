@@ -7,8 +7,10 @@
 
 import UIKit
 import RealmSwift
+import DynamicColor
 
 class CategoryViewController: SwipeTableViewController {
+    let labPalette = [UIColor(hexString: "#3bad43"), UIColor(hexString: "#3498db"), UIColor(hexString: "#e74c3c"), UIColor(hexString: "#f1c40f")].gradient.colorPalette(amount: 10, inColorSpace: .lab)
     
     let realm = try! Realm()
     
@@ -29,6 +31,8 @@ class CategoryViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories added yet"
+        cell.textLabel?.textColor = .white
+        cell.backgroundColor = labPalette[indexPath.row]
         return cell
     }
     
