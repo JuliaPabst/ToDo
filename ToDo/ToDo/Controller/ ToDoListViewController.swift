@@ -44,7 +44,9 @@ class ToDoListViewController: SwipeTableViewController {
             cell.textLabel?.text = item.title
             cell.textLabel?.textColor = .white
             cell.accessoryType = item.done ?  .checkmark : .none
-            cell.backgroundColor = selectedColor!.tinted(amount: currentShade)
+            if let color = selectedColor {
+                cell.backgroundColor = color.tinted(amount: currentShade)
+            }
         } else {
             cell.textLabel?.text = "No items added"
         }
