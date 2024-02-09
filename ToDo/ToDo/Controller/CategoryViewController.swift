@@ -19,7 +19,6 @@ class CategoryViewController: SwipeTableViewController {
         super.viewDidLoad()
         tableView.delegate = self
         loadCategories()
-        tableView.rowHeight = 80.0
     }
     
     //MARK: - TableView Datasource Methods

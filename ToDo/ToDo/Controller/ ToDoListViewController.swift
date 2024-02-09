@@ -24,7 +24,6 @@ class ToDoListViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
-        tableView.rowHeight = 80.0
     }
     
     //MARK - TableView Delegate Methods
