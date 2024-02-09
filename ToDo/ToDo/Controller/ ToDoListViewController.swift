@@ -10,6 +10,7 @@ import RealmSwift
 
 class ToDoListViewController: SwipeTableViewController {
     
+    @IBOutlet weak var checkMarkView: UIImageView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     var items: Results<Item>?
@@ -43,7 +44,14 @@ class ToDoListViewController: SwipeTableViewController {
             let currentShade = 0.1 * CGFloat(indexPath.row % 8)
             cell.textLabel?.text = item.title
             cell.textLabel?.textColor = .white
-            cell.accessoryType = item.done ?  .checkmark : .none
+            
+            
+            if item.done {
+                checkMarkView.isHidden = false
+            } else {
+                checkMarkView.isHidden = true
+            }
+            
             if let color = selectedColor {
                 cell.backgroundColor = color.tinted(amount: currentShade)
             }
