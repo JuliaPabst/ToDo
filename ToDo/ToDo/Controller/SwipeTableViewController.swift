@@ -9,10 +9,21 @@ import UIKit
 import SwipeCellKit
 
 class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+    }
+    
+    // Table View Datasource Methods
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
+        cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories added yet"
+        
+        
+        return cell
     }
     
     
@@ -21,17 +32,17 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         
         print("Delete Cell")
         
-//        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-//            if let currentCategory = self.categories?[indexPath.row]{
-//                do {
-//                    try self.realm.write {
-//                        self.realm.delete(currentCategory)
-//                    }
-//                } catch {
-//                    print("Cannot delete  item checked \(error)")
-//                }
-//            }
-//        }
+        //        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+        //            if let currentCategory = self.categories?[indexPath.row]{
+        //                do {
+        //                    try self.realm.write {
+        //                        self.realm.delete(currentCategory)
+        //                    }
+        //                } catch {
+        //                    print("Cannot delete  item checked \(error)")
+        //                }
+        //            }
+        //        }
         
         // customize the action appearance
         deleteAction.image = UIImage(named: "delete-icon")
@@ -44,6 +55,6 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
         options.expansionStyle = .destructive
         return options
     }
-
-
+    
+    
 }
