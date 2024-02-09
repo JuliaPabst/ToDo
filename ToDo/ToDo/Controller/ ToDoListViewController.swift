@@ -21,6 +21,12 @@ class ToDoListViewController: SwipeTableViewController {
         }
     }
     
+    var selectedColor: UIColor? {
+        didSet{
+            loadItems()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -34,8 +40,11 @@ class ToDoListViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let item = items?[indexPath.row]{
+            let currentShade = 0.1 * CGFloat(indexPath.row % 8)
             cell.textLabel?.text = item.title
+            cell.textLabel?.textColor = .white
             cell.accessoryType = item.done ?  .checkmark : .none
+            cell.backgroundColor = selectedColor!.tinted(amount: currentShade)
         } else {
             cell.textLabel?.text = "No items added"
         }

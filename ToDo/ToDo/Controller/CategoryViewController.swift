@@ -32,7 +32,7 @@ class CategoryViewController: SwipeTableViewController {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories added yet"
         cell.textLabel?.textColor = .white
-        cell.backgroundColor = labPalette[indexPath.row]
+        cell.backgroundColor = labPalette[indexPath.row % 10]
         return cell
     }
     
@@ -109,6 +109,7 @@ class CategoryViewController: SwipeTableViewController {
         
         if let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.selectedCategory = categories?[indexPath.row]
+            destinationVC.selectedColor = labPalette[indexPath.row % 10]
         }
     }
 }
