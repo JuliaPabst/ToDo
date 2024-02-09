@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class ToDoListViewController: UITableViewController {
+class ToDoListViewController: SwipeTableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -21,16 +21,10 @@ class ToDoListViewController: UITableViewController {
         }
     }
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
-        //searchBar.delegate = self
     }
-    
     
     //MARK - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,15 +32,13 @@ class ToDoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let item = items?[indexPath.row]{
             cell.textLabel?.text = item.title
-            
             cell.accessoryType = item.done ?  .checkmark : .none
         } else {
             cell.textLabel?.text = "No items added"
         }
-        
         
         return cell
     }
@@ -61,11 +53,9 @@ class ToDoListViewController: UITableViewController {
             } catch {
                 print("Cannot update item checked or unchecked \(error)")
             }
-            
         }
         
         tableView.reloadData()
-        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -73,12 +63,8 @@ class ToDoListViewController: UITableViewController {
     //MARK - Add new Items
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var currentText = UITextField()
-        
         let alert = UIAlertController(title: "Add new ToDo Item", message: "", preferredStyle: .alert)
-        
         let action = UIAlertAction(title: "Add Item", style: .default){ (action) in
-            
-            
             if let text = currentText.text{
                 
                 if let currentCategory = self.selectedCategory {
@@ -113,7 +99,19 @@ class ToDoListViewController: UITableViewController {
         items = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         self.tableView.reloadData()
     }
-
+    
+    override func updateModel(at indexPath: IndexPath) {
+        if let currentItem = self.items?[indexPath.row]{
+            do {
+                try self.realm.write {
+                    self.realm.delete(currentItem)
+                }
+            } catch {
+                print("Cannot delete  item\(error)")
+            }
+        }
+    }
+    
 }
 
 //MARK - SearchBar

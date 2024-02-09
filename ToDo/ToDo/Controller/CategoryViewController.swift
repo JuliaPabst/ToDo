@@ -30,8 +30,6 @@ class CategoryViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories added yet"
-        
-        
         return cell
     }
     
@@ -90,19 +88,14 @@ class CategoryViewController: SwipeTableViewController {
                     self.realm.delete(currentCategory)
                 }
             } catch {
-                print("Cannot delete  item checked \(error)")
+                print("Cannot delete category \(error)")
             }
         }
     }
     
-    
-    
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
-        
         performSegue(withIdentifier: "goToItems", sender: self)
         
         tableView.deselectRow(at: indexPath, animated: true)
