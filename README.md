@@ -1,2 +1,2 @@
 # ToDo
-An iOS To-Do-List app which uses Core Data to save your entries.
+An iOS To-Do-List app which uses Core Data and Realm to save your entries.
