@@ -48,7 +48,6 @@ class ToDoListViewController: SwipeTableViewController {
         if let item =  items?[indexPath.row] {
             do {
                 try self.realm.write {
-                    realm.delete(item)
                     item.done = !item.done
                 }
             } catch {
