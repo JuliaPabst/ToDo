@@ -10,7 +10,7 @@ import RealmSwift
 import DynamicColor
 
 class CategoryViewController: SwipeTableViewController {
-    let labPalette = [UIColor(hexString: "#3bad43"), UIColor(hexString: "#3498db"), UIColor(hexString: "#e74c3c"), UIColor(hexString: "#f1c40f")].gradient.colorPalette(amount: 10, inColorSpace: .lab)
+    let labPalette = [UIColor(hexString: "#f1c40f"), UIColor(hexString: "#e74c3c"), UIColor(hexString: "#3498db"), UIColor(hexString: "#3bad43")].gradient.colorPalette(amount: 10, inColorSpace: .lab)
     
     let realm = try! Realm()
     
